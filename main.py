@@ -45,6 +45,28 @@ def train(norm_train_img, norm_test_img, train_y, test_y):
   new_plot('Train Loss & Validation Loss', 'epochs', 'Traing loss', tr_loss, val_loss, 'train', 'validation')
   new_plot('Train Accuracy & Validation Accuracy', 'epochs', 'Accuracy', accuracy, val_accuracy, 'train', 'validation')
   '''
+  
+def predict_label(pred_result):
+  best_class = 0
+  max_num = 0.0
+  labels = np.array([
+    '비행기',
+    '자동차',
+    '새',
+    '고양이',
+    '사슴',
+    '개',
+    '개구리',
+    '말',
+    '배',
+    '트럭'])
+  print("#result ===========================")
+  for i in range(10):
+    print("{} : {}%".format(labels[i], round(pred_result[0][i] * 100, 2)))
+    if max_num < pred_result[0][i]:
+      max_num = pred_result[0][i]
+      best_class = i
+  print("===================================")
 
   
 def main():

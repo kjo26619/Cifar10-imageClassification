@@ -16,7 +16,35 @@ def resize_image_arr(img_arr):
     resized_img = resize(img, (224, 224))
     x_resized_list.append(resized_img)
   return np.stack(x_resized_list)
+
+def train(norm_train_img, norm_test_img, train_y, test_y):
+  # configuration
+  batch = 64
+  epoch = 50
+
+  model = resnet.res_net50_model()
+
+  es = EarlyStopping(monitor='val_loss', mode='min', patience=5, verbose=1)
+  mc = ModelCheckpoint('best_model.h5', monitor='val_loss', mode='min', verbose=1)
+
+  hist = model.fit(norm_train_img, train_y, batch_size=batch, epochs=epoch, validation_split=0.2, callbacks=[es, mc])
   
+  test_loss, test_acc = model.evaluate(norm_test_img, test_y, verbose=0)
+  
+  '''
+  result = hist.history
+  print('Test loss:', test_loss)
+  print('Test accuracy:', test_acc)
+  
+  tr_loss = result['loss']
+  accuracy = result['accuracy']
+  val_loss = result['val_loss']
+  val_accuracy = result['val_accuracy']
+
+  new_plot('Train Loss & Validation Loss', 'epochs', 'Traing loss', tr_loss, val_loss, 'train', 'validation')
+  new_plot('Train Accuracy & Validation Accuracy', 'epochs', 'Accuracy', accuracy, val_accuracy, 'train', 'validation')
+  '''
+
 def main():
   training = True
   
@@ -48,30 +76,3 @@ def main():
 
   print("이 사진은", best_class)
   
-def train(norm_train_img, norm_test_img, train_y, test_y):
-  # configuration
-  batch = 64
-  epoch = 50
-
-  model = resnet.res_net50_model()
-
-  es = EarlyStopping(monitor='val_loss', mode='min', patience=5, verbose=1)
-  mc = ModelCheckpoint('best_model.h5', monitor='val_loss', mode='min', verbose=1)
-
-  hist = model.fit(norm_train_img, train_y, batch_size=batch, epochs=epoch, validation_split=0.2, callbacks=[es, mc])
-  
-  test_loss, test_acc = model.evaluate(norm_test_img, test_y, verbose=0)
-  
-  '''
-  result = hist.history
-  print('Test loss:', test_loss)
-  print('Test accuracy:', test_acc)
-  
-  tr_loss = result['loss']
-  accuracy = result['accuracy']
-  val_loss = result['val_loss']
-  val_accuracy = result['val_accuracy']
-
-  new_plot('Train Loss & Validation Loss', 'epochs', 'Traing loss', tr_loss, val_loss, 'train', 'validation')
-  new_plot('Train Accuracy & Validation Accuracy', 'epochs', 'Accuracy', accuracy, val_accuracy, 'train', 'validation')
-  '''

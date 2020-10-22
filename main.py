@@ -99,3 +99,4 @@ def main():
 
   print("이 사진은", best_class)
   
+main()

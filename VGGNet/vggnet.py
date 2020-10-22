@@ -1,3 +1,5 @@
+import tensorflow as tf
+
 def vgg_net_model(shape=(32, 32, 3), input_feature=32, output_feature=10):
     model = tf.keras.Sequential([
         tf.keras.layers.Conv2D(input_feature , (3, 3), activation='relu', input_shape=shape, padding='same'),

@@ -1,5 +1,6 @@
 # Cifar10-imageClassification
-imageClassification using Cifar10
+
+Cifar10 이미지 분류
 
 # 주의
 임의로 CNN 구조를 바꾸어서 Accuracy를 높이려고 하느라고 구조가 다를 수 있습니다.

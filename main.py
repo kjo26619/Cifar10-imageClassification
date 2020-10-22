@@ -17,6 +17,7 @@ def resize_image_arr(img_arr):
     x_resized_list.append(resized_img)
   return np.stack(x_resized_list)
 
+
 def train(norm_train_img, norm_test_img, train_y, test_y):
   # configuration
   batch = 64
@@ -45,6 +46,7 @@ def train(norm_train_img, norm_test_img, train_y, test_y):
   new_plot('Train Accuracy & Validation Accuracy', 'epochs', 'Accuracy', accuracy, val_accuracy, 'train', 'validation')
   '''
 
+  
 def main():
   training = True
   
@@ -68,7 +70,6 @@ def main():
 
   cv2.waitKey(0)
   cv2.destroyAllWindows()
-
 
   pred_result = model.predict(re_image)
 

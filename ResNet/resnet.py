@@ -1,3 +1,5 @@
+import tensorflow as tf
+
 def residual_block(x, input_feature, output_feature, stride):
     if stride == 2:
         shortcut_x = tf.keras.layers.Conv2D(output_feature, (1, 1), strides=stride, activation='relu', padding='same')(
